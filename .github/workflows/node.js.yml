@@ -12,5 +12,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Run Cypress tests
-        run: npx cypress run --headless
+      - name: Install Percy
+        run: npm install --save-dev @percy/cli @percy/cypress
+      
+      - name: Run Cypress tests with Percy
+        run: npx percy exec -- cypress run --headless
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
